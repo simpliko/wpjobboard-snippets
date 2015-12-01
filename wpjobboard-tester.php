@@ -1,3 +1,3 @@
 <?php
 
-include_once dirname(__FILE__). '/password-reminder-link/password-reminder-link.php';
+include_once dirname(__FILE__). '/custom-application-status/custom-application-status.php';
