@@ -16,6 +16,8 @@ add_action( "wpjb_payment_for", "custom_payment_type_for" );
 add_filter( "wpjb_payment_object", "custom_payment_type_object", 10, 2 );
 // accept pricing
 add_filter( "wpjb_payment_accept", "custom_payment_type_accept", 10, 2 );
+// display custom payment success message
+add_filter( "wpjb_payment_success_messages", "custom_payment_type_messages", 10, 2 );
 // shortcode where we can test the payment method
 add_shortcode( "custom_payment_type_form", "custom_payment_type_form" );
 
@@ -88,7 +90,7 @@ function custom_payment_type_for( $item ) {
     $object = new Wpjb_Model_Resume($item->object_id);
 
     $user = $object->getUser(true);
-    
+
     $object_url = esc_attr(wpjb_admin_url("resumes", "edit", $object->id));
     $object_title = esc_html(trim($user->display_name));
 
@@ -112,7 +114,7 @@ function custom_payment_type_object( $data, $pricing ) {
 
     return array(
         "id" => Daq_Request::getInstance()->post("object_id"),
-        "type" => 0
+        "type" => 9 // <= set your object type here (9 - 250)
     );
 }
 
@@ -136,7 +138,7 @@ function custom_payment_type_accept( $accepted, $payment ) {
 
     $pricing = new Wpjb_Model_Pricing($payment->pricing_id);
     $list = new Wpjb_List_Pricing();
-    $listng = $list->getBy("id", $pricing->price_for);
+    $listing = $list->getBy("id", $pricing->price_for);
 
     if( is_null($listing) || $listing['id'] != 210 ) {
         return $accepted;
@@ -204,4 +206,28 @@ function custom_payment_type_form( $atts ) {
 
 
     return $render;
+}
+
+/**
+ * Allows to display custom payment success message
+ *
+ * @param array $messages List of success messages
+ * @param Wpjb_Model_Payment $payment Current payment object
+ * @return string Rendered payment form
+ */
+function custom_payment_type_messages($messages, $payment) {
+
+    $pricing = new Wpjb_Model_Pricing($payment->pricing_id);
+    $list = new Wpjb_List_Pricing();
+    $listing = $list->getBy("id", $pricing->price_for);
+
+    if( is_null($listing) || $listing['id'] != 210 ) {
+        return $messages;
+    }
+
+    $messages = array();
+    $messages[] = "<strong>Thank you for submitting your order.</strong>";
+    // more $messages[] here ...
+
+    return $messages;
 }
