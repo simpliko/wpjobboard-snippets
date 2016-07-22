@@ -23,7 +23,7 @@ function upload_from_dropbox_init() {
     if( defined( "WPJB_SNIPPETS" ) ) {
         $plugin_url = plugins_url() . "/wpjobboard-snippets/upload-from-dropbox/";
     } else {
-        $plugin_url = plugins_url() . "upload-from-dropbox/";
+        $plugin_url = plugins_url() . "/upload-from-dropbox/";
     }
 
     load_plugin_textdomain( "upload_from_dropbox", false, "upload-from-dropbox/languages" );
