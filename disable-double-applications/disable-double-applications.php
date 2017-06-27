@@ -35,6 +35,7 @@ function disable_double_applications($cond, $job, $ctrl = null) {
         if( !empty($result) ) {
             $cond = false;
             if( get_query_var("applied") != $job->id && $ctrl ) {
+                $ctrl->view->_flash->addError("You already applied for this job.");
             }
         }
         
@@ -52,7 +53,7 @@ function disable_double_applications($cond, $job, $ctrl = null) {
 
         if( !empty($result) ) {
             $cond = false;
-            if( get_query_var("applied") != $job->id  && $ctrl) {
+            if( get_query_var("applied") != $job->id && $ctrl ) {
                 $ctrl->view->_flash->addError("You (or someone using your email address) already applied for this job.");
             }
         }
