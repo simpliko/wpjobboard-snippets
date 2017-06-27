@@ -19,7 +19,7 @@ add_filter("wpjb_user_can_apply", "disable_double_applications", 10, 3);
  * @param type $ctrl            Controller
  * @return boolean
  */
-function disable_double_applications($cond, $job, $ctrl) {
+function disable_double_applications($cond, $job, $ctrl = null) {
 
     $id = get_current_user_id();
 
@@ -34,18 +34,17 @@ function disable_double_applications($cond, $job, $ctrl) {
 
         if( !empty($result) ) {
             $cond = false;
-            if( get_query_var("applied") != $job->id ) {
-                $ctrl->view->_flash->addError("You already applied for this job.");
+            if( get_query_var("applied") != $job->id && $ctrl ) {
             }
         }
         
         return $cond;
     }
     
-    if( Daq_Requset::getInstance()->post( "email" ) ) {
+    if( Daq_Request::getInstance()->post( "email" ) ) {
         $query = new Daq_Db_Query();
         $query->from("Wpjb_Model_Application t");
-        $query->where("email = ?", Daq_Requset::getInstance()->post( "email" ) );
+        $query->where("email = ?", Daq_Request::getInstance()->post( "email" ) );
         $query->where("job_id = ?", $job->id);
         $query->limit(1);
 
@@ -53,7 +52,7 @@ function disable_double_applications($cond, $job, $ctrl) {
 
         if( !empty($result) ) {
             $cond = false;
-            if( get_query_var("applied") != $job->id ) {
+            if( get_query_var("applied") != $job->id  && $ctrl) {
                 $ctrl->view->_flash->addError("You (or someone using your email address) already applied for this job.");
             }
         }
