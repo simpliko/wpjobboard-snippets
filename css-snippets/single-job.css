@@ -1,0 +1,34 @@
+/*
+Changes to the Job Details pages
+*/
+
+/* Change text color and background for the company box */
+.single-job .wpjb-top-header {
+    color: #666;
+    background-color: #fff;
+}
+
+/* Hide the company logo on Job details page */
+.single-job .wpjb-top-header-image {
+    display: none;
+}
+
+/* Customize the data grid (category, job type, published and custom fields) */
+.single-job .wpjb-grid.wpjb-grid-closed-top {
+    border-top: 2px dashed whitesmoke;
+}
+.single-job .wpjb-grid-row {
+    padding: 12px 0 12px 0;
+    border-bottom: 2px dashed whitesmoke;
+    
+}
+.single-job .wpjb-grid-row .wpjb-grid-col {
+    font-size: 13px;
+}
+/* Customize icons inside the grid */
+.single-job .wpjb-grid-row .wpjb-grid-col.wpjb-col-65:before {
+    border-radius: 50%;
+    background: whitesmoke;
+    padding: 3px;
+    border: 1px solid #eee;
+}

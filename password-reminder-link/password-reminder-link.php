@@ -17,10 +17,10 @@ add_filter("wpjb_shortcode_login", "wpjb_snipp_password_reminder_link");
  * This function uses wpjb_shortcode_login filter to create and insert
  * remind password link.
  *
- * @param Daq_View View object to be updated
- * @return Daq_View Updated View object
+ * @param stdClass View object to be updated
+ * @return stdClass Updated View object
  */
-function wpjb_snipp_password_reminder_link(Daq_View $view) {
+function wpjb_snipp_password_reminder_link($view) {
 
     $buttons = $view->buttons;
     
