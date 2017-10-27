@@ -94,6 +94,30 @@ function csj_show_job_expires_at( $job ) {
 add_action( "wpjb_template_job_meta_text", "csj_show_job_expires_at" );
 
 /**
+ * Shows company email on job details page
+ * 
+ * Displays a company email in the job information table on job details page
+ * for example https://demo.wpjobboard.net/job/web-developer/
+ * 
+ * This function is applied using wpjb_template_job_meta_text action
+ * 
+ * @see wpjb_template_job_meta_text action
+ * 
+ * @param Wpjb_Model_Job $job
+ */
+function csj_show_company_email( $job ) {
+    ?>
+    <div class="wpjb-grid-row">
+        <div class="wpjb-grid-col wpjb-col-30"><?php _e("Company Email", "wpjobboard"); ?></div>
+        <div class="wpjb-grid-col wpjb-col-65 wpjb-glyphs wpjb-icon-mail-alt">
+            <?php echo esc_html($job->company_email) ?>
+        </div>
+    </div>
+    <?php
+}
+add_action( "wpjb_template_job_meta_text", "csj_show_company_email" );
+
+/**
  * Shows login of a person who posted the job
  * 
  * Displays login of a person who posted the job between Apply Online button and
