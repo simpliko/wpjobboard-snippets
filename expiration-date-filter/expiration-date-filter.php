@@ -15,11 +15,11 @@ add_filter( "wpjb_form_init_job", "expiration_date_filter_init" );
  * Takes a job expiration date from field "custom_expiration_date" and sets
  * job expiration date to the custom value.
  * 
- * @param string              $job_expires_at     Expiration date set based on selected listing type
- * @param Wpjb_Form_AddJob    $form               Submitted form
+ * @param string                    $job_expires_at     Expiration date set based on selected listing type
+ * @param Wpjb_Form_Abstract_Job    $form               Submitted form
  * @return string
  */
-function expiration_date_filter( $job_expires_at,  Wpjb_Form_AddJob $form ) {
+function expiration_date_filter( $job_expires_at,  Wpjb_Form_Abstract_Job $form ) {
     if( $form->hasElement( "custom_expiration_date" ) ) {
         $job_expires_at = $form->getElement( "custom_expiration_date" )->getValue();
     }
@@ -33,10 +33,10 @@ function expiration_date_filter( $job_expires_at,  Wpjb_Form_AddJob $form ) {
  * This function registers new meta field named "custom_expiration_date" and
  * adds it to the [wpjb_jobs_add] form.
  * 
- * @param Wpjb_Form_AddJob  $form   Form to customize
- * @return Wpjb_Form_AddJob
+ * @param Wpjb_Form_Abstract_Job  $form   Form to customize
+ * @return Wpjb_Form_Abstract_Job
  */
-function expiration_date_filter_init( Wpjb_Form_AddJob $form ) {
+function expiration_date_filter_init( Wpjb_Form_Abstract_Job $form ) {
     if( is_admin() ) {
         return $form;
     }
