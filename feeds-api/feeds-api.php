@@ -59,7 +59,8 @@ function feeds_api_rss($item, $rss, $job) {
     $item->appendChild($rss->createElement("expires_at", esc_html($job->job_expires_at)));
     // Using meta fields
     $item->appendChild($rss->createElement("job_description_format", esc_html($job->meta->job_description_format->value())));
-    
+    // Using dropdown - array fields
+    $item->appendChild($rss->createElement("category", esc_html($job->getTag()->category[0]->title)));
     // Make sure to return $item
     return $item;
 }
